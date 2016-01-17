@@ -14,9 +14,14 @@ repositories {
 
 dependencies {
 	
+	compile files('libs/libraries.jar')
+	
 	// Logging
     compile 'ch.qos.logback:logback-classic:1.1.3'
     compile 'org.slf4j:slf4j-api:1.7.12'
+	
+	// String Utils
+	compile 'org.apache.commons:commons-lang3:3.4'
 
 	// Testing
     testCompile 'org.codehaus.groovy:groovy-all:2.4.3'
