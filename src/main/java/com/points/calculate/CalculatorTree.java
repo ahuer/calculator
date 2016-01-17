@@ -1,5 +1,8 @@
 package com.points.calculate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.points.node.twochild.Node;
@@ -7,22 +10,77 @@ import com.points.node.twochild.Node;
 
 public class CalculatorTree {
 	
-	public static int readCalculationString(String calculation) {
-		if (StringUtils.isEmpty(calculation) ) {
-			return 0;
-		}
+	private Node topNode;
+	
+	public CalculatorTree() {
+		topNode = null;
+	}
+	
+	public CalculatorTree(String equation) {
+		if (StringUtils.isEmpty(equation) ) {
+			topNode = null;
+		} else {
+			topNode = createCalculatorTreeFromString(equation);
+		}		
+	}
+	
+	private static Node createCalculatorTreeFromString(String equation) {	
+		String[] elements = equation.split(" ");
+		List<Node> nodeList = new ArrayList<>();
 		
-		String[] elements = calculation.split(" ");
 		for (String element : elements ) {
 			Node node;
 			try {
 				int num = Integer.parseInt(element);
 				node = new NumberNode(num);
 			} catch (NumberFormatException ex) {
-				node = new OperatorNode(Operator.fromString(element));
+				try {
+					node = new OperatorNode(Operator.fromString(element));
+				} catch (IllegalArgumentException e) {
+					continue;
+				}
 			}
-			
+			nodeList.add(node);			
 		}
+		
+		if (nodeList.size() < 1 ) {
+			return null;
+		}
+		
+		if (!nodeList.get(0).getClass().equals(NumberNode.class) ) {
+			return null;
+		}
+		
+		return createTree(nodeList);
+	}
+	
+	private static Node createTree(List<Node> nodeList) {
+		
+		if (nodeList.size() == 1 ) {
+			return nodeList.get(0);
+		}
+		
+		int middle = nodeList.size() / 2;
+		if (middle % 2 == 0 ) {
+			middle += 1;
+		}
+		Node currentNode = nodeList.get(middle);
+		
+		currentNode.setLeftChild(createTree(nodeList.subList(0, middle)));
+		currentNode.setRightChild(createTree(nodeList.subList(middle + 1, nodeList.size())));
+		
+		return currentNode;		
+	}
+	
+	public Node getTopNode() {
+		return topNode;
+	}
+	
+	public int calculate() {
+		if (topNode == null ) {
+			throw new IllegalArgumentException("topNode is null");
+		}
+	
 		return 0;
 	}
 
