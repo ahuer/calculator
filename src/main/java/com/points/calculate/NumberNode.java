@@ -7,5 +7,5 @@ public class NumberNode extends Node {
 	public NumberNode(int num) {
 		super(num);
 	}
-
+	
 }

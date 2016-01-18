@@ -6,6 +6,7 @@ import org.junit.Test
 
 class CalculatorTreeTest {
 	
+	// Tree Structure
 	@Test
 	public void createCalculatorTreeForSingleNumber() {
 		def tree = new CalculatorTree("3")
@@ -54,6 +55,32 @@ class CalculatorTreeTest {
 		assertEquals(5, leftleft.getRightChild().getData())
 		assertEquals(4, right.getLeftChild().getData())
 		assertEquals(2, right.getRightChild().getData())
+	}
+	
+	// Evaluate Equations	
+	@Test
+	public void calculateSingleNumber() {
+		def tree = new CalculatorTree("3")
+		assertEquals(3, tree.calculate())
+	}
+	
+	@Test
+	public void calcuateSimpleEquation() {
+		def tree = new CalculatorTree("3 + 4")
+		assertEquals(7, tree.calculate())
+	}
+	
+	@Test
+	public void calcuateLongerEquation() {
+		def tree = new CalculatorTree("3 * 5 - 7 + 4")
+		// grouping 7+4 first = 4 instead of 12
+		assertEquals(4, tree.calculate())
+	}
+	
+	@Test
+	public void calcuateUnevenTreeEquation() {
+		def tree = new CalculatorTree("3 * 5 - 7 + 4 / 2")
+		assertEquals(10, tree.calculate())
 	}
 
 }

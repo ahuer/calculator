@@ -76,12 +76,25 @@ public class CalculatorTree {
 		return topNode;
 	}
 	
-	public int calculate() {
+	public int calculate() throws IllegalArgumentException {
 		if (topNode == null ) {
 			throw new IllegalArgumentException("topNode is null");
 		}
-	
-		return 0;
+		
+		Node result;
+		
+		try {
+			result = topNode.evaluate();
+			
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}		
+		
+		if (result.getClass() != NumberNode.class ) {
+			throw new IllegalArgumentException("Result was not a number");
+		}
+		
+		return (int)result.getData(); 
 	}
 
 }
