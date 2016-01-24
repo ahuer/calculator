@@ -1,4 +1,4 @@
-package com.points.calculate;
+package com.points.calculate.inheritance;
 
 import org.apache.commons.lang3.StringUtils;
 

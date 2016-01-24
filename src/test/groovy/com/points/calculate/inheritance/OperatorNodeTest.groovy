@@ -1,7 +1,11 @@
-package com.points.calculate
+package com.points.calculate.inheritance
 
 import static org.junit.Assert.*
+
 import org.junit.Test
+
+import com.points.calculate.inheritance.Operator;
+import com.points.calculate.inheritance.OperatorNode;
 
 class OperatorNodeTest extends GroovyTestCase {
 
