@@ -1,15 +1,17 @@
 package com.points.calculate.inheritance;
 
+import java.math.BigDecimal;
+
 import com.points.tree.binarytree.BinaryTreeNode;
 
-public class OperatorNode extends BinaryTreeNode<Operator>{
+public class OperatorNode extends BinaryTreeNode<Operator> implements IntegerEval{
 	
 	public OperatorNode(Operator op) {
 		super(op);
 	}
 	
 	@Override
-	public BinaryTreeNode<Operator> evaluate() throws IllegalArgumentException {
+	public BigDecimal eval() throws IllegalArgumentException {
 		if (getLeftChild() == null && getRightChild() == null ) {
 			throw new IllegalArgumentException("Both child nodes are null");
 		}
@@ -46,5 +48,5 @@ public class OperatorNode extends BinaryTreeNode<Operator>{
 				throw new IllegalArgumentException("Operator not found '" + getData() + "'");
 		}		
 	}
-	
+
 }
