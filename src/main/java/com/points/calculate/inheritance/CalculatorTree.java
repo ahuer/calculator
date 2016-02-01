@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.points.tree.Node;
 import com.points.tree.binarytree.BinaryTreeNode;
 
 
 public class CalculatorTree {
 	
-	private BinaryTreeNode rootNode;
+	private IntegerEval rootNode;
 	
 	public CalculatorTree() {}
 	
@@ -20,12 +21,12 @@ public class CalculatorTree {
 		}		
 	}
 	
-	private BinaryTreeNode populateRootNode(String equation) {	
+	private IntegerEval populateRootNode(String equation) {	
 		String[] elements = equation.split(" ");
-		List<BinaryTreeNode> nodeList = new ArrayList<>();
+		List<IntegerEval> nodeList = new ArrayList<>();
 		
 		for (String element : elements ) {
-			BinaryTreeNode node;
+			IntegerEval node;
 			try {
 				int num = Integer.parseInt(element);
 				node = new IntegerNode(num);
@@ -33,24 +34,16 @@ public class CalculatorTree {
 				try {
 					node = new OperatorNode(Operator.fromString(element));
 				} catch (IllegalArgumentException e) {
-					continue;
+					throw e;
 				}
 			}
 			nodeList.add(node);			
 		}
-		
-		if (nodeList.size() < 1 ) {
-			return null;
-		}
-		
-		if (!nodeList.get(0).getClass().equals(IntegerNode.class) ) {
-			return null;
-		}
-		
-		return createTree(nodeList);
+				
+		return generateCalculatorTreeRootNode(nodeList);
 	}
 	
-	private BinaryTreeNode createTree(List<BinaryTreeNode> nodeList) {
+	private IntegerEval generateCalculatorTreeRootNode(List<IntegerEval> nodeList) {
 		
 		if (nodeList.size() == 1 ) {
 			return nodeList.get(0);
@@ -60,37 +53,33 @@ public class CalculatorTree {
 		if (middle % 2 == 0 ) {
 			middle += 1;
 		}
-		BinaryTreeNode currentNode = nodeList.get(middle);
+		BinaryTreeNode currentNode = (BinaryTreeNode) nodeList.get(middle);
 		
-		currentNode.setLeftChild(createTree(nodeList.subList(0, middle)));
-		currentNode.setRightChild(createTree(nodeList.subList(middle + 1, nodeList.size())));
+		currentNode.setLeftChild((BinaryTreeNode) generateCalculatorTreeRootNode(nodeList.subList(0, middle)));
+		currentNode.setRightChild((BinaryTreeNode) generateCalculatorTreeRootNode(nodeList.subList(middle + 1, nodeList.size())));
 		
-		return currentNode;		
+		return (IntegerEval) currentNode;		
 	}
 	
-	public BinaryTreeNode getRootNode() {
+	public IntegerEval getRootNode() {
 		return rootNode;
 	}
 	
-	public int calculate() throws IllegalArgumentException {
+	public Integer calculate() throws IllegalArgumentException {
 		if (rootNode == null ) {
-			throw new IllegalArgumentException("topNode is null");
+			throw new IllegalArgumentException("rootNode is null");
 		}
 		
-		BinaryTreeNode result;
+		Integer result;
 		
 		try {
-			result = (BinaryTreeNode) rootNode.evaluate();
+			result = rootNode.eval();
 			
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e.getMessage());
-		}		
+		}	
 		
-		if (result.getClass() != IntegerNode.class ) {
-			throw new IllegalArgumentException("Result was not a number");
-		}
-		
-		return (int)result.getData(); 
+		return result; 
 	}
 
 }

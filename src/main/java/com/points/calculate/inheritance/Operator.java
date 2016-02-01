@@ -13,14 +13,6 @@ public enum Operator {
 		this.op = op;
 	}
 	
-	public String getOp() {
-		return op;
-	}
-	
-	public void setOp(String newOp) {
-		op = newOp;
-	}
-	
 	public static Operator fromString(String symbol) throws IllegalArgumentException {
 		if (StringUtils.isEmpty(symbol) ) {
 			throw new IllegalArgumentException("Symbol provided was null or blank");

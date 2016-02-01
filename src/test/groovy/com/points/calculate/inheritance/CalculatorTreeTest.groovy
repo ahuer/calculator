@@ -4,8 +4,7 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
-import com.points.calculate.inheritance.CalculatorTree;
-import com.points.calculate.inheritance.Operator;
+import com.points.tree.binarytree.BinaryTreeNode;
 
 class CalculatorTreeTest {
 	
@@ -17,17 +16,12 @@ class CalculatorTreeTest {
 	}
 	
 	@Test
-	public void createCalculatorTreeForSymbolReturnsNull() {
-		def tree = new CalculatorTree("+")
-		assertEquals(null, tree.getRootNode())
-	}
-	
-	@Test
 	public void createCalculatorTreeFromSimpleEquation() {
 		def tree = new CalculatorTree("3 + 4")
-		assertEquals(Operator.ADD, tree.getRootNode().getData())
-		assertEquals(3, tree.getRootNode().getLeftChild().getData())
-		assertEquals(4, tree.getRootNode().getRightChild().getData())
+		def root = (BinaryTreeNode) tree.getRootNode()
+		assertEquals(Operator.ADD, root.getData())
+		assertEquals(3, root.getLeftChild().getData())
+		assertEquals(4, root.getRightChild().getData())
 	}
 	
 	@Test
