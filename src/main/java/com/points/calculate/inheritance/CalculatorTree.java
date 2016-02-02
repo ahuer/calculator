@@ -55,8 +55,8 @@ public class CalculatorTree {
 		}
 		BinaryTreeNode currentNode = (BinaryTreeNode) nodeList.get(middle);
 		
-		currentNode.setLeftChild((BinaryTreeNode) generateCalculatorTreeRootNode(nodeList.subList(0, middle)));
-		currentNode.setRightChild((BinaryTreeNode) generateCalculatorTreeRootNode(nodeList.subList(middle + 1, nodeList.size())));
+		currentNode.setLeftChild((Node) generateCalculatorTreeRootNode(nodeList.subList(0, middle)));
+		currentNode.setRightChild((Node) generateCalculatorTreeRootNode(nodeList.subList(middle + 1, nodeList.size())));
 		
 		return (IntegerEval) currentNode;		
 	}
