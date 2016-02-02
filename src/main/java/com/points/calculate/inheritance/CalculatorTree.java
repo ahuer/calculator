@@ -32,7 +32,7 @@ public class CalculatorTree {
 				node = new IntegerNode(num);
 			} catch (NumberFormatException ex) {
 				try {
-					node = new OperatorNode(Operator.fromString(element));
+					node = new OperatorNode(Operator.valueOfString(element));
 				} catch (IllegalArgumentException e) {
 					throw e;
 				}

@@ -19,7 +19,7 @@ class OperatorNodeTest extends GroovyTestCase {
 	
 	@Test
 	public void testEnumValFromString() {
-		def node = new OperatorNode(Operator.fromString("+"))
+		def node = new OperatorNode(Operator.valueOfString("+"))
 		assertEquals(Operator.ADD, node.getData())
 		assertEquals(null, node.getLeftChild())
 		assertEquals(null, node.getRightChild())
@@ -28,7 +28,7 @@ class OperatorNodeTest extends GroovyTestCase {
 	@Test
 	public void testEnumValFromStringExceptionThrown() {
 		def msg = shouldFail {
-			def node = OperatorNode(Operator.fromString("@"))
+			def node = OperatorNode(Operator.valueOfString("@"))
 		}
 		assertEquals("Symbol provided is not an Operator '@'", msg)
 	}

@@ -13,7 +13,7 @@ public enum Operator {
 		this.op = op;
 	}
 	
-	public static Operator fromString(String symbol) throws IllegalArgumentException {
+	public static Operator valueOfString(String symbol) throws IllegalArgumentException {
 		if (StringUtils.isEmpty(symbol) ) {
 			throw new IllegalArgumentException("Symbol provided was null or blank");
 		}
